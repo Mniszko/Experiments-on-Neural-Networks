@@ -1,0 +1,6 @@
+mnist_red
+*.zip
+*.png
+*.gif
+*.csv
+__pycache__
