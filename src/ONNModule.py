@@ -70,3 +70,32 @@ def append_to_csv(filename, data_array):
     with open(filename, mode='a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(data_array)
+
+def save_parameters(weights_matrix, weights, biases, bias_phases, filename):
+    """
+    Save weights, biases, and bias_phases to a .npz file.
+    
+    Parameters:
+        weights (np.ndarray): The weights matrix.
+        biases (np.ndarray): The biases array.
+        bias_phases (np.ndarray): The bias phases array.
+        filename (str): The filename to save the parameters.
+    """
+    np.savez(filename, weights_matrix=weights_matrix, weights=weights, biases=biases, bias_phases=bias_phases)
+
+def load_parameters(filename):
+    """
+    Load weights, biases, and bias_phases from a .npz file.
+    
+    Parameters:
+        filename (str): The filename to load the parameters from.
+    
+    Returns:
+        tuple: A tuple containing the weights, biases, and bias_phases arrays.
+    """
+    data = np.load(filename+'.npz')
+    weights_matrix = data['weights_matrix']
+    weights = data['weights']
+    biases = data['biases']
+    bias_phases = data['bias_phases']
+    return weights_matrix, weights, biases, bias_phases

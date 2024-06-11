@@ -8,13 +8,31 @@ import os
 import imageio
 import re
 import sys
+import argparse
 # importing custom functions
 sys.path.append('./src')
 from ONNModule import kuramoto_oscillators, kuramoto_oscillators_nudge, clear_csv, append_to_csv
 
 
 def main():
-    N = int(input("Enter number of (fully connected) neurons (minimum stands at N = 5):\t"))
+
+    # Create the parser
+    parser = argparse.ArgumentParser(description="A program to demonstrate command-line arguments.")
+    
+    # Define the arguments
+    parser.add_argument('number', type=int, help="An integer number.")
+    parser.add_argument('letter', type=str, help="A letter (string).")
+    parser.add_argument('num_of_epochs', type=int, help="number of epochs.")
+    
+    # Parse the arguments
+    args = parser.parse_args()
+
+    N = args.number
+    do_save = args.letter
+    num_of_epochs = args.num_of_epochs
+
+    
+    #N = int(input("Enter number of (fully connected) neurons (minimum stands at N = 5):\t"))
     if N<3:
         return 1
 
@@ -77,7 +95,8 @@ def main():
 
     learning_rate = 0.1
 
-    num_of_epochs = int(input("Input number of epochs:\t"))
+    #num_of_epochs = int(input("Input number of epochs:\t"))
+
 
     # training the network
     for epoch in range(num_of_epochs):
@@ -174,6 +193,10 @@ def main():
     plt.title("Distances")
     plt.savefig("XOR_ONN_distances.png")
     plt.show()
+    
+    #do_save = input("Do you want to save the distances and accuracies y/n:\t")
+    if do_save=="y" or do_save=="yes":
+        append_to_csv("XOR_FNN_distances.csv", distances)
 
     return 0
 

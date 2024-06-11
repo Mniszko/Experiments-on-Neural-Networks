@@ -1,6 +1,11 @@
 mnist_red
+temp*
 *.zip
 *.png
 *.gif
 *.csv
 __pycache__
+*.npz
+*.eps
+*.svg
+
